@@ -11,7 +11,10 @@ base {
 }
 
 repositories {
-    // Fabric / Mojang libraries are resolved by Loom automatically.
+    mavenCentral()
+    maven {
+        url = 'https://maven.fabricmc.net/'
+    }
 }
 
 dependencies {
@@ -24,14 +27,15 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
+
     filesMatching("fabric.mod.json") {
         expand "version": inputs.properties.version
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
-    it.options.encoding = "UTF-8"
+    options.release = 21
+    options.encoding = "UTF-8"
 }
 
 java {
